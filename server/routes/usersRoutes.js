@@ -4,22 +4,15 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 
 // USERS CRUD FUNCTIONALITY
-// INITIAL CHECK TO SEE IF USER IS ALREADY LOGGED IN
-router.get('/home',
-  userController.checkIfSessionActive,
-  userController.getUserInfo,
-  (req, res) => {
-    console.log(req);
-    return res.send(200).json(res.locals.user);
-  });
-
 router.post('/login',
   userController.verifyUser,
   userController.createSession,
   userController.saveSessionIDToCookies,
+  userController.checkIfSessionActive,
   userController.getUserInfo,
   (req, res) => {
     console.log(req);
+    // redirect on login
     return res.send(200).json(res.locals.user);
   });
 

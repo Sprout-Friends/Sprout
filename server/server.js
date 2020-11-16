@@ -3,28 +3,28 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const plantsRouter = require('./routes/plantsRouter');
-const usersRouter = require('./routes/userRouter');
+const usersRouter = require('./routes/usersRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // SET UP
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // PLANT ROUTES
-server.use('/plants', plantsRouter);
+app.use('/plants', plantsRouter);
 
 // USER ROUTES
-server.use('/users', usersRouter);
+app.use('/users', usersRouter);
 
 // REGULAR ROUTES
 app.get('/', (req, res) => res.send('Hello World'));
 app.use(express.static('public'));
 
 // ERROR HANDLER
-server.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error: Unknown middleware',
     status: 500,
