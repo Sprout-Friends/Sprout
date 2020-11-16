@@ -108,7 +108,7 @@ dist
 *.swo
 
 # Build
-build/*.js
+build
 
 # VScode
 .DS_Store
