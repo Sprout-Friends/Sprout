@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const plantsRouter = require('./routes/plantsRouter');
-const usersRouter = require('./routes/usersRouter');
+// const plantsRouter = require('./routes/plantsRoutes');
+// const usersRouter = require('./routes/usersRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,10 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // PLANT ROUTES
-app.use('/plants', plantsRouter);
+// app.use('/plants', plantsRouter);
 
 // USER ROUTES
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 // REGULAR ROUTES
 app.get('/', (req, res) => res.send('Hello World'));
