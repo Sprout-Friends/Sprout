@@ -32,9 +32,11 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router": "^5.2.0",
     "webpack-dev-server": "^3.11.0"
   }
 }
