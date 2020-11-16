@@ -26,13 +26,13 @@ userController.checkIfSessionActive = async (req, res, next) => {
 
 userController.createSession = async (req, res, next) => {
   try {
-  // ADD CODE HERE TO CREATE NEW SESSION AND RETURN THE USERID AND SESSIONID
-  // if(session) {
-  //  res.locals.sessionID = session;
-  //  res.locals.userID = userID;
-  //  return next();
-  // }
-
+    const randomSessionId = `s${Math.random().toString(20).substr(2, 25)}`;
+    // ADD CODE HERE TO CREATE NEW SESSION AND RETURN THE USERID AND SESSIONID
+    // if(session) {
+    //  res.locals.sessionID = session;
+    //  res.locals.userID = userID;
+    //  return next();
+    // }
   } catch (err) {
     return next({
       log: `Error caught in userController.createSession. \n Error Message: ${err}`,
@@ -80,6 +80,7 @@ userController.deleteSessionCookie = async (req, res, next) => {
 // USER INFO
 userController.createUser = async (req, res, next) => {
   try {
+    const randomUserId = `u${Math.random().toString(20).substr(2, 15)}`;
     // INSERT DATABASE FUNCTIONALITY TO CREATE USER
     // if(user) {
     //  res.locals.userId = user.id;

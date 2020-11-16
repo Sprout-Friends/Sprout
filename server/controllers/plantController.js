@@ -36,7 +36,7 @@ plantController.addPlant = (req, res, next) => {
 plantController.deletePlant = (req, res, next) => {
   // const { id } = req.body; --> will update after table is built
   const query = `
-    DELETE FROM favorites WHERE  = $1;
+    DELETE FROM plants WHERE  = $1;
   `;
 
   const values = [];
