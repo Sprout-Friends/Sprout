@@ -1,75 +1,86 @@
-const db = require('../models');
+const db = require('../models/plantModels');
 
 const plantController = {};
 
 plantController.getPlants = (req, res, next) => {
-  const query = 'SELECT * FROM plants'; // update table name
+  const query = 'SELECT * FROM plants';
 
   db.query(query)
     .then((data) => {
       res.locals.plants = data.rows;
     })
-    .catch((err) => next({
-      log: 'Could not get plants. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get plants. Check query syntax.',
+        message: { error: err },
+      })
+    );
   next();
 };
 
 plantController.addPlant = (req, res, next) => {
-  // const {data} = req.body --> --> will update after table is built
+  const { user_id, plant_obj } = req.body;
   const query = `
-    INSERT INTO favorites () 
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO favorites (user_id, plant_obj) 
+    VALUES ($1, $2)
   `;
-  db.query(query)
+
+  const values = [user_id, plant_obj];
+
+  db.query(query, values)
     .then((data) => {
       res.locals.plants = data.rows;
     })
-    .catch((err) => next({
-      log: 'Plant not added. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Plant not added. Check query syntax.',
+        message: { error: err },
+      })
+    );
   next();
 };
 
 plantController.deletePlant = (req, res, next) => {
-  // const { id } = req.body; --> will update after table is built
+  const { id } = req.body;
   const query = `
-    DELETE FROM plants WHERE  = $1;
+    DELETE FROM plants WHERE id= $1;
   `;
 
-  const values = [];
+  const values = [id];
 
   db.query(query, values)
     .then((data) => {
       res.locals.plants = data.rows;
     })
-    .catch((err) => next({
-      log: 'Plant not deleted. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Plant not deleted. Check query syntax.',
+        message: { error: err },
+      })
+    );
   next();
 };
 
 plantController.updatePlant = (req, res, next) => {
-  // const { id } = req.body; --> will update after table is built
+  const { id, plant_obj } = req.body;
   const query = `
     UPDATE plants
-    SET col1=$1, col2=$2, col3=$3;
-    WHERE condition
+    SET plant_obj=$2;
+    WHERE id=$1
   `;
 
-  const values = [/* values from req body */];
+  const values = [id, plant_obj];
 
   db.query(query, values)
     .then((data) => {
       res.locals.plants = data.rows;
     })
-    .catch((err) => next({
-      log: 'Plant not updated. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Plant not updated. Check query syntax.',
+        message: { error: err },
+      })
+    );
   next();
 };
 
