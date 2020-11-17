@@ -1,12 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Dashboard from './containers/DashboardContainer';
 import Login from './containers/LoginContainer';
 import { UserContext } from './UserContext';
+import { Index } from './index';
 
 const App = () => {
   // Enable isLoggedIn for development
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState(null);
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
