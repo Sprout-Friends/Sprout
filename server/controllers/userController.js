@@ -54,13 +54,13 @@ userController.deleteSession = async (req, res, next) => {
 userController.createUser = async (req, res, next) => {
   console.log('WE ARE IN userController.createUser');
   const queryArray = [
-    req.body.username, // -> $1
+    req.body.email, // -> $1
     req.body.first_name, // -> $2
     req.body.last_name, // -> $3
     req.body.password, // -> $4
   ];
 
-  const query = 'INSERT INTO users(username,first_name,last_name,password) VALUES ($1,$2,$3,$4)';
+  const query = 'INSERT INTO users(email,first_name,last_name,password) VALUES ($1,$2,$3,$4)';
 
   db.query(query, queryArray)
     .then((data) => next())
@@ -73,13 +73,13 @@ userController.createUser = async (req, res, next) => {
 userController.verifyUser = async (req, res, next) => {
   console.log('WE ARE IN userController.verifyUser');
   const queryArray = [
-    req.body.username, // -> $1
+    req.body.email, // -> $1
     req.body.password, // -> $2
   ];
   const query = `
-    SELECT _id,username,first_name,last_name 
+    SELECT _id,email,first_name,last_name 
     FROM users 
-    WHERE username=$1 AND password=$2
+    WHERE email=$1 AND password=$2
   `;
 
   db.query(query, queryArray)
@@ -97,7 +97,7 @@ userController.getUserInfo = async (req, res, next) => {
   console.log('WE ARE IN userController.getUserInfo');
   const { userId } = res.locals;
   const query = `
-    SELECT _id,username,first_name,last_name
+    SELECT _id,email,first_name,last_name
     FROM users
     WHERE _id=$1
   `;
