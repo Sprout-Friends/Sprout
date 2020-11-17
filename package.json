@@ -6,8 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=production node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "webpack serve --mode development --env development & nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development webpack serve --mode development --env development & nodemon server/server.js",
+    "test": "NODE_ENV=testing jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -34,11 +34,12 @@
   "dependencies": {
     "axios": "^0.21.0",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jest": "^26.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
-    "webpack-dev-server": "^3.11.0",
-    "dotenv": "^8.2.0"
+    "webpack-dev-server": "^3.11.0"
   }
 }

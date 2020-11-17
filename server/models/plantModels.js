@@ -1,17 +1,16 @@
 const { Pool } = require('pg');
 
-const PG_URI = process.env.PG_URI;
-
+const URI = (process.env.NODE_ENV === 'testing') ? process.env.testing_URI : process.env.PG_URI;
 
 const pool = new Pool({
-  connectionString: PG_URI,
+  connectionString: URI,
 });
 
 // schema can be found in models/SQL/plantInfoCreate.sql
 
 module.exports = {
-  query: (text, params, callback) => {
+  query: (text, params, callback) =>
     // console.log('executed query', text);
-    return pool.query(text, params, callback);
-  },
+    pool.query(text, params, callback)
+  ,
 };
