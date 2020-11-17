@@ -68,7 +68,7 @@ const LoginContainer = () => {
         <div className="buttonDiv">
           <button
             type="submit"
-            id="signupButton"
+            id="register"
             className="buttons"
             onClick={(e) => {
               submit(e.target.id);
@@ -78,7 +78,12 @@ const LoginContainer = () => {
           </button>
         </div>
       </div>
-      <p>Already have an account? Log in</p>
+      <span className="logging">
+        Already have an account?{' '}
+        <button class="switching" type="button">
+          Log in
+        </button>
+      </span>
     </div>
   );
 };
