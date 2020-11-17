@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const LoginContainer = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [page, setPage] = useState('Sign Up');
 
   const emailOnChange = (e) => {
     setEmail(e.target.value);
@@ -29,7 +30,7 @@ const LoginContainer = () => {
       .then((data) => {
         setEmail('');
         setPassword('');
-        // if successfully set user in db, do something
+        // if successfully set user in db, do something and redirect
         console.log('successfully set user!');
       })
       .catch((e) => {
@@ -37,9 +38,14 @@ const LoginContainer = () => {
       });
   };
 
+  const switching = () => {
+    if (page === 'Sign Up') setPage('Log In');
+    else setPage('Sign Up');
+  };
+
   return (
     <div className="signup">
-      <h2>Sign Up</h2>
+      <h2>{page}</h2>
       <div className="login-signup-wrapper">
         <div className="inputs">
           <div className="input-border">
@@ -74,16 +80,25 @@ const LoginContainer = () => {
               submit(e.target.id);
             }}
           >
-            Sign Up
+            {page}
           </button>
         </div>
       </div>
-      <span className="logging">
-        Already have an account?{' '}
-        <button class="switching" type="button">
-          Log in
-        </button>
-      </span>
+      {page === 'Sign Up' ? (
+        <span className="span-wrapper">
+          Already have an account?{' '}
+          <button className="switching" type="button" onClick={switching}>
+            Log in
+          </button>
+        </span>
+      ) : (
+        <span className="span-wrapper">
+          Need to create an account?{' '}
+          <button className="switching" type="button" onClick={switching}>
+            Sign up
+          </button>
+        </span>
+      )}
     </div>
   );
 };
