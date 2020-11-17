@@ -4,8 +4,8 @@ import { Home, Search, Camera, Chat, User } from 'heroicons-react';
 
 const Navigation = () => {
   return (
-    <div>
-      <nav>
+    <div className="w-full text-center p-4 pin-b">
+      <nav className="absolute inset-x-0 bottom-0">
         <ul className="flex items-center justify-around border-t-2">
           <li className="inline-block">
             <Link to="/" className="text-green-600 hover:text-green-700 m-2">
