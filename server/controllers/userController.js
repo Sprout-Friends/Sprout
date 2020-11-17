@@ -1,144 +1,137 @@
 const axios = require('axios');
+const db = require('../models/plantModels.js');
 
 const userController = {};
 
 // SESSIONS
 userController.checkIfSessionActive = async (req, res, next) => {
-  try {
-    // get sessionID out of cookies
-    const { sessionID } = req.cookies;
-    // ADD CODE HERE TO CHECK FOR ACTIVE FOR SESSIONID IN SQL DATABASE
-    // SAVE SESSION TO LOCALS AND RETURN
-    // if(session) {
-    //  res.locals.session = session;
-    //  return next();
-    // }
-
-    // return to homepage if no session is active
-    return res.redirect('/home');
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.checkIfSessionActive. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  const { sessionId } = req.cookies;
+  // check for active sessionID in session table
+  const query = 'SELECT * FROM session WHERE _id=$1';
+  db.query(query, [sessionId])
+    .then((data) => {
+      res.locals.userId = data.rows;
+      console.log(`checkIfSessionActive SQL result: ${data.rows}`);
+      if (rows in data) return next();
+      // return to homepage if no session is active
+      return res.redirect('/signin');
+    })
+    .catch((err) => next({
+      log: 'Could not get session from DB. Check query syntax.',
+      message: { error: err },
+    }));
 };
 
 userController.createSession = async (req, res, next) => {
-  try {
-    const randomSessionId = `s${Math.random().toString(20).substr(2, 25)}`;
-    // ADD CODE HERE TO CREATE NEW SESSION AND RETURN THE USERID AND SESSIONID
-    // if(session) {
-    //  res.locals.sessionID = session;
-    //  res.locals.userID = userID;
-    //  return next();
-    // }
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.createSession. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  const { userId } = res.locals;
+  const query = 'INSERT INTO session(user_id) VALUES ($1)';
+
+  db.query(query, [userId])
+    .then((data) => {
+      res.locals.userId = data.rows;
+      console.log(`createSession SQL result: ${data.rows}`);
+      return next();
+      // return to homepage if no session is active
+      return res.redirect('/signin');
+    })
+    .catch((err) => next({
+      log: 'Could not get session from DB. Check query syntax.',
+      message: { error: err },
+    }));
+  return next({
+    log: `Error caught in userController.createSession. \n Error Message: ${err}`,
+    message: { err },
+  });
 };
 
 userController.saveSessionIDToCookies = async (req, res, next) => {
-  try {
-  //  res.cookie('sessionID', res.locals.sessionID, { httpOnly: true });
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.saveSessionIDToCookies. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  const { userId } = res.locals;
+  const query = 'SELECT * FROM session WHERE user_id=$1';
+
+  db.query(query, [userId])
+    .then((data) => {
+      res.locals.userId = data.rows;
+      console.log(`saveSessionIdToCookies SQL result: ${data.rows}`);
+      res.cookie('sessionId', res.locals.sessionId, { httpOnly: true });
+      if (res.locals.userId) return next();
+      // return to homepage if no session is active
+      return res.redirect('/signin');
+    })
+    .catch((err) => next({
+      log: 'Could not save session to DB. Check query syntax.',
+      message: { error: err },
+    }));
 };
 
 userController.deleteSession = async (req, res, next) => {
-  try {
-    const { sessionID } = req.cookies;
-    //  res.locals.sessionID = session;
-    //  ADD CODE HERE TO DELETE THE SESSION WITH THE CURRENT SESSION ID
-    //  return next();
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.deleteSession. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
-};
+  const { sessionId } = req.cookies;
+  const query = 'DELETE FROM session WHERE _id=$1';
 
-userController.deleteSessionCookie = async (req, res, next) => {
-  try {
-  //  res.cookie('sessionID', res.locals.sessionID, { expires: Date.now() });
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.deleteSessionCookie. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  db.query(query, [sessionId])
+    .then((data) => {
+      res.locals.userId = data.rows;
+      res.cookie('sessionId', res.locals.sessionId, { expires: Date.now() });
+      return next();
+    })
+    .catch((err) => next({
+      log: 'Could not delete session from DB. Check query syntax.',
+      message: { error: err },
+    }));
 };
 
 // USER INFO
 userController.createUser = async (req, res, next) => {
-  try {
-    const randomUserId = `u${Math.random().toString(20).substr(2, 15)}`;
-    // INSERT DATABASE FUNCTIONALITY TO CREATE USER
-    // if(user) {
-    //  res.locals.userId = user.id;
-    //  return next();
-    // }
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.createUser. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  const queryArray = [
+    req.body.username, // -> $1
+    req.body.first_name, // -> $2
+    req.body.last_name, // -> $3
+    req.body.password, // -> $4
+  ];
+
+  const query = 'INSERT INTO users(username,first_name,last_name,password) VALUES ($1,$2,$3,$4)';
+
+  db.query(query, queryArray)
+    .then((data) => {
+      res.locals.user = data.rows;
+      return next();
+    })
+    .catch((err) => next({
+      log: 'Could not createUser in DB. Check query syntax.',
+      message: { error: err },
+    }));
 };
 
 userController.verifyUser = async (req, res, next) => {
-  try {
-    // INSERT CHECK TO SEE IF USER WITH GIVEN PASSWORD IS IN DATABASE
-    // if(user) {
-    //  res.locals.userId = user.id;
-    //  return next();
-    // }
+  const queryArray = [
+    req.body.username, // -> $1
+    req.body.password, // -> $2
+  ];
+  const query = 'SELECT * FROM users WHERE username=$1 AND password=$2';
 
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.verifyUser. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  db.query(query, queryArray)
+    .then((data) => {
+      res.locals.user = data.rows;
+      return next();
+    })
+    .catch((err) => next({
+      log: 'Could not get verify user from DB. Check query syntax.',
+      message: { error: err },
+    }));
 };
 
 userController.getUserInfo = async (req, res, next) => {
-  try {
-    // INSERT QUERY TO GET USER INFORMATION
-    // if(user) {
-    //  res.locals.user = user;
-    //  return next();
-    // }
+  const { sessionId } = req.cookies;
+  const query = 'SELECT * FROM users WHERE sessionID=$1';
 
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.getUserInfo. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
-};
-
-userController.updateUserInfo = async (req, res, next) => {
-  try {
-    // INSERT QUERY TO UPDATE USER INFORMATION
-    // if(user) {
-    //  res.locals.user = user;
-    //  return next();
-    // }
-  } catch (err) {
-    return next({
-      log: `Error caught in userController.updateUserInfo. \n Error Message: ${err}`,
-      message: { err },
-    });
-  }
+  db.query(query, sessionId)
+    .then((data) => {
+      res.locals.user = data.rows;
+      return next();
+    })
+    .catch((err) => next({
+      log: 'Could not get verify user from DB. Check query syntax.',
+      message: { error: err },
+    }));
 };
 
 module.exports = userController;

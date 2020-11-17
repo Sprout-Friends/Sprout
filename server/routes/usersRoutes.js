@@ -19,7 +19,6 @@ router.post('/login',
 // CHANGE TO REDIRECT TO SIGN IN PAGE
 router.delete('/signout',
   userController.deleteSession,
-  userController.deleteSessionCookie,
   (req, res) => {
     console.log(req);
     return res.send(200).json({ message: 'user is logged out' });
@@ -30,14 +29,6 @@ router.post('/register',
   userController.verifyUser,
   userController.createSession,
   userController.saveSessionIDToCookies,
-  userController.getUserInfo,
-  (req, res) => {
-    console.log(req);
-    return res.send(200).json(res.locals.user);
-  });
-
-router.post('/update',
-  userController.updateUserInfo,
   userController.getUserInfo,
   (req, res) => {
     console.log(req);
