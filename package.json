@@ -34,11 +34,12 @@
   "dependencies": {
     "axios": "^0.21.0",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
-    "webpack-dev-server": "^3.11.0",
-    "dotenv": "^8.2.0"
+    "react-router-dom": "^5.2.0",
+    "webpack-dev-server": "^3.11.0"
   }
 }
