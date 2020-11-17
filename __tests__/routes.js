@@ -49,5 +49,25 @@ describe('db tests', () => {
           });
       });
     });
+
+    describe('POST - users/login', () => {
+      it('successfully logs in a user', async () => {
+        const userInfo = {
+          email: 'test@starwars.com',
+          password: 'aNewHope',
+        };
+        await request
+          .post('/users/login')
+          .send(userInfo)
+          .expect(200)
+          .expect('Content-Type', 'application/json; charset=utf-8')
+          .then((res) => {
+            const { email, first_name, last_name } = res.body;
+            assert(email === userInfo.email);
+            assert(first_name === 'JarJar');
+            assert(last_name === 'Binks');
+          });
+      });
+    });
   });
 });
