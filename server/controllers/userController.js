@@ -1,4 +1,3 @@
-const axios = require('axios');
 const db = require('../models/plantModels.js');
 
 const userController = {};
@@ -7,60 +6,31 @@ const userController = {};
 userController.checkIfSessionActive = async (req, res, next) => {
   const { sessionId } = req.cookies;
   // check for active sessionID in session table
-  const query = 'SELECT * FROM session WHERE _id=$1';
+  const query = 'SELECT * FROM session WHERE session_id=$1';
   db.query(query, [sessionId])
     .then((data) => {
-      res.locals.userId = data.rows;
-      console.log(`checkIfSessionActive SQL result: ${data.rows}`);
-      if (rows in data) return next();
-      // return to homepage if no session is active
-      return res.redirect('/signin');
-    })
-    .catch((err) => next({
-      log: 'Could not get session from DB. Check query syntax.',
-      message: { error: err },
-    }));
-};
-
-userController.createSession = async (req, res, next) => {
-  const { userId } = res.locals;
-  const query = 'INSERT INTO session(user_id) VALUES ($1)';
-
-  db.query(query, [userId])
-    .then((data) => {
-      res.locals.userId = data.rows;
-      console.log(`createSession SQL result: ${data.rows}`);
+      res.locals.userId = data.rows[0].user_id;
       return next();
-      // return to homepage if no session is active
-      return res.redirect('/signin');
     })
     .catch((err) => next({
       log: 'Could not get session from DB. Check query syntax.',
       message: { error: err },
     }));
-  return next({
-    log: `Error caught in userController.createSession. \n Error Message: ${err}`,
-    message: { err },
-  });
 };
 
-userController.saveSessionIDToCookies = async (req, res, next) => {
+userController.createSessionAndSaveToCookies = async (req, res, next) => {
   const randomSessionId = Math.random().toString(20).substr(2, 15);
+  console.log('WE ARE IN userController.createSession');
+  const { user } = res.locals;
+  const query = 'INSERT INTO session(user_id, session_id) VALUES ($1, $2)';
 
-  const { userId } = res.locals;
-  const query = 'SELECT * FROM session WHERE user_id=$1 session_id=$2';
-
-  db.query(query, [userId, randomSessionId])
+  db.query(query, [user._id, randomSessionId])
     .then((data) => {
-      res.locals.userId = data.rows;
-      console.log(`saveSessionIdToCookies SQL result: ${data.rows}`);
-      res.cookie('sessionId', res.locals.sessionId, { httpOnly: true });
-      if (res.locals.userId) return next();
-      // return to homepage if no session is active
-      return res.redirect('/signin');
+      res.cookie('sessionId', randomSessionId, { httpOnly: true });
+      return next();
     })
     .catch((err) => next({
-      log: 'Could not save session to DB. Check query syntax.',
+      log: 'Could not get session from DB. Check query syntax.',
       message: { error: err },
     }));
 };
@@ -71,7 +41,6 @@ userController.deleteSession = async (req, res, next) => {
 
   db.query(query, [sessionId])
     .then((data) => {
-      res.locals.userId = data.rows;
       res.cookie('sessionId', res.locals.sessionId, { expires: Date.now() });
       return next();
     })
@@ -83,6 +52,7 @@ userController.deleteSession = async (req, res, next) => {
 
 // USER INFO
 userController.createUser = async (req, res, next) => {
+  console.log('WE ARE IN userController.createUser');
   const queryArray = [
     req.body.username, // -> $1
     req.body.first_name, // -> $2
@@ -93,10 +63,7 @@ userController.createUser = async (req, res, next) => {
   const query = 'INSERT INTO users(username,first_name,last_name,password) VALUES ($1,$2,$3,$4)';
 
   db.query(query, queryArray)
-    .then((data) => {
-      res.locals.user = data.rows;
-      return next();
-    })
+    .then((data) => next())
     .catch((err) => next({
       log: 'Could not createUser in DB. Check query syntax.',
       message: { error: err },
@@ -104,15 +71,20 @@ userController.createUser = async (req, res, next) => {
 };
 
 userController.verifyUser = async (req, res, next) => {
+  console.log('WE ARE IN userController.verifyUser');
   const queryArray = [
     req.body.username, // -> $1
     req.body.password, // -> $2
   ];
-  const query = 'SELECT * FROM users WHERE username=$1 AND password=$2';
+  const query = `
+    SELECT _id,username,first_name,last_name 
+    FROM users 
+    WHERE username=$1 AND password=$2
+  `;
 
   db.query(query, queryArray)
     .then((data) => {
-      res.locals.user = data.rows;
+      res.locals.user = data.rows[0];
       return next();
     })
     .catch((err) => next({
@@ -122,12 +94,17 @@ userController.verifyUser = async (req, res, next) => {
 };
 
 userController.getUserInfo = async (req, res, next) => {
-  const { sessionId } = req.cookies;
-  const query = 'SELECT * FROM users WHERE sessionID=$1';
+  console.log('WE ARE IN userController.getUserInfo');
+  const { userId } = res.locals;
+  const query = `
+    SELECT _id,username,first_name,last_name
+    FROM users
+    WHERE _id=$1
+  `;
 
-  db.query(query, sessionId)
+  db.query(query, userId)
     .then((data) => {
-      res.locals.user = data.rows;
+      res.locals.user = data.rows[0];
       return next();
     })
     .catch((err) => next({

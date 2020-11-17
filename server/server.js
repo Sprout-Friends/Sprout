@@ -1,3 +1,4 @@
+require('dotenv').config('../.env');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -37,4 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 console.log('Remember to check your .env file if you cannot connect to the database');
-module.exports = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+module.exports = app;

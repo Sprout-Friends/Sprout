@@ -1,35 +1,32 @@
-const request = require('supertest');
 const assert = require('assert');
+const supertest = require('supertest');
 const app = require('../server/server.js');
-const db = require('../server/models/plantModels.js');
 
-const server = 'http://localhost:3000';
+const request = supertest(app);
 
-describe('db unit tests', () => {
-  describe('/', () => {
-    describe('GET', () => {
-      it('responds with 200 status and text/html content type', () => request(server)
-        .get('/')
-        .expect('Content-Type', /text\/html/)
-        .expect(200));
+describe('db tests', () => {
+  describe('users table', () => {
+    describe('POST - users/register', () => {
+      it('successfully creates a new user', async () => {
+        const userInfo = {
+          username: 'TestUsername1',
+          first_name: 'JarJar',
+          last_name: 'Binks',
+          password: 'aNewHope',
+        };
+
+        await request
+          .post('/users/register')
+          .send(userInfo)
+          .expect(200)
+          .expect('Content-Type', 'application/json; charset=utf-8')
+          .then((res) => {
+            const { username, first_name, last_name } = res.body;
+            assert(username === userInfo.username);
+            assert(first_name === userInfo.first_name);
+            assert(last_name === userInfo.last_name);
+          });
+      });
     });
   });
-
-  // describe('users table', () => {
-  //   it('successfully creates a new user', () => {
-  //     const userInfo = expect(2 + 2).toEqual(4);
-  //   });
-  // });
-
-  // describe('check 2+2', () => {
-  //   it('writes a valid marketList to the JSON file', () => {
-  //     expect(2 + 2).toEqual(4);
-  //   });
-  // });
-
-  // describe('check 2+2', () => {
-  //   it('writes a valid marketList to the JSON file', () => {
-  //     expect(2 + 2).toEqual(4);
-  //   });
-  // });
 });
