@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Dashboard from './containers/DashboardContainer';
 import Login from './containers/LoginContainer';
-
-library.add(faPlus);
 
 const App = () => {
   // Enable isLoggedIn for development
