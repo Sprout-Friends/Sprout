@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const URI = (process.env.NODE_ENV === 'testing') ? process.env.testing_URI : process.env.PG_URI;
+const URI = (process.env.NODE_ENV === 'test') ? process.env.testing_URI : process.env.PG_URI;
 
 const pool = new Pool({
   connectionString: URI,
