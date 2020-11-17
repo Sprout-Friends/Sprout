@@ -45,10 +45,12 @@ userController.createSession = async (req, res, next) => {
 };
 
 userController.saveSessionIDToCookies = async (req, res, next) => {
-  const { userId } = res.locals;
-  const query = 'SELECT * FROM session WHERE user_id=$1';
+  const randomSessionId = Math.random().toString(20).substr(2, 15);
 
-  db.query(query, [userId])
+  const { userId } = res.locals;
+  const query = 'SELECT * FROM session WHERE user_id=$1 session_id=$2';
+
+  db.query(query, [userId, randomSessionId])
     .then((data) => {
       res.locals.userId = data.rows;
       console.log(`saveSessionIdToCookies SQL result: ${data.rows}`);
