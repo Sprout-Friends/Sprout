@@ -3,9 +3,15 @@ const db = require('../models/plantModels');
 const plantController = {};
 
 plantController.getPlants = (req, res, next) => {
-  const query = 'SELECT * FROM plants';
+  const { id } = req.body;
 
-  db.query(query)
+  const query = `
+  SELECT * FROM plants
+  WHERE user_id = $1
+  `;
+  const values = [id];
+
+  db.query(query, values)
     .then((data) => {
       res.locals.plants = data.rows;
     })
@@ -21,7 +27,7 @@ plantController.getPlants = (req, res, next) => {
 plantController.addPlant = (req, res, next) => {
   const { user_id, plant_obj } = req.body;
   const query = `
-    INSERT INTO favorites (user_id, plant_obj) 
+    INSERT INTO plants (user_id, plant_obj) 
     VALUES ($1, $2)
   `;
 
