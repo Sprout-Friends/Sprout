@@ -6,7 +6,7 @@ const Navigation = () => {
   return (
     <div>
       <nav>
-        <ul className="flex items-center justify-around border-t-2">
+        <ul className="bg-white text-center text-white flex items-center justify-around border-t-1">
           <li className="inline-block">
             <Link to="/" className="text-green-600 hover:text-green-700 m-2">
               <Home />
