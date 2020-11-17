@@ -7,16 +7,13 @@ const Navigation = () => {
       <nav>
         <ul>
           <li>
-            <Link to="dashboard">{/* add home icon */}</Link>
+            <Link to="/">{/* add home icon */}</Link>
           </li>
           <li>
             <Link to="search">{/* add search icon */}</Link>
           </li>
           <li>
-            <Link to="">
-              Camera
-              {/* add camera icon */}
-            </Link>
+            <Link to="gallery">{/* add camera icon */}</Link>
           </li>
           <li>
             <Link to="message">{/* add message icon */}</Link>
