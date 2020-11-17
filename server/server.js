@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-// const plantsRouter = require('./routes/plantsRoutes');
-// const usersRouter = require('./routes/usersRoutes');
+const plantsRoutes = require('./routes/plantsRoutes');
+const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,13 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // PLANT ROUTES
-// app.use('/plants', plantsRouter);
+app.use('/plants', plantsRoutes);
 
 // USER ROUTES
-// app.use('/users', usersRouter);
+app.use('/users', usersRoutes);
 
 // REGULAR ROUTES
-app.get('/', (req, res) => res.send('Hello World'));
+app.get('/', (req, res) => res.status(200).send('Hello World'));
 app.use(express.static('public'));
 
 // ERROR HANDLER
@@ -37,7 +37,4 @@ app.use((err, req, res, next) => {
 });
 
 console.log('Remember to check your .env file if you cannot connect to the database');
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+module.exports = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
