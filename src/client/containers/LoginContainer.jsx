@@ -45,7 +45,7 @@ const LoginContainer = () => {
       ) {
         return;
       }
-      fetch(`/${path}`, {
+      fetch(`/users/${path}`, {
         method: 'POST',
         body: JSON.stringify({
           email,
@@ -74,7 +74,7 @@ const LoginContainer = () => {
         if (email.trim() === '' || password.trim() === '') {
           return;
         }
-        fetch(`/${path}`, {
+        fetch(`/users/${path}`, {
           headers: {
             'Content-type': 'Application/json',
             email,
