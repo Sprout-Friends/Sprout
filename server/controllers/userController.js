@@ -81,6 +81,7 @@ userController.verifyUser = async (req, res, next) => {
 
   db.query(query, queryArray)
     .then((data) => {
+      if (data.rowCount === 0) res.sendStatus(403);
       res.locals.user = data.rows[0];
       return next();
     })
