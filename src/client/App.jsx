@@ -14,8 +14,8 @@ const App = () => {
 
   return (
     <div id="app-container">
-      {isLoggedIn ? (
-        <Router>
+      <Router>
+        {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/plant/:plantId" component={PlantProfile} />
@@ -25,10 +25,10 @@ const App = () => {
             <Route exact path="/profile" component={UserProfile} />
             <Route path="*" render={() => <h1>404 - Page Not Found</h1>} />
           </Switch>
-        </Router>
-      ) : (
-        <Login />
-      )}
+        ) : (
+          <Login />
+        )}
+      </Router>
     </div>
   );
 };
