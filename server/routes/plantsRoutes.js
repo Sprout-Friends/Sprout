@@ -1,5 +1,6 @@
 const express = require('express');
 const plantController = require('../controllers/plantController');
+const postController = require('../controllers/postController');
 
 const router = express.Router();
 
@@ -19,5 +20,16 @@ router.delete('/',
   plantController.deletePlant,
   plantController.getPlants,
   (req, res) => { res.status(200).send(res.locals.plants); });
+
+// receive userid & plantid in headers => returns post list as array of objects
+router.get('/posts', postController.getAllPosts, (req, res) => {
+  res.status(200).send(res.locals.posts);
+});
+
+// receive userid & plantid in headers, postinfo in body => returns post list as array of objects
+router.post('/posts',
+  postController.addPost,
+  postController.getAllPosts,
+  (req, res) => { res.status(200).send(res.locals.posts); });
 
 module.exports = router;
