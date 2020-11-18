@@ -50,10 +50,7 @@ plantController.deletePlant = (req, res, next) => {
   const values = [plantid];
 
   db.query(query, values)
-    .then((data) => {
-      res.locals.plants = data.rows;
-      return next();
-    })
+    .then((data) => next())
     .catch((err) => next({
       log: 'Plant not deleted. Check query syntax.',
       message: { error: err },
