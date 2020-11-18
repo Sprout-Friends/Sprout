@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SessionProvider from './contexts/sessionContext';
 import Dashboard from './containers/DashboardContainer';
 import Login from './containers/LoginContainer';
 import PlantProfile from './containers/PlantProfileContainer';
@@ -13,6 +14,8 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
+
+   <SessionProvider>
     <div id="app-container">
       <Router>
         {isLoggedIn ? (
@@ -30,6 +33,8 @@ const App = () => {
         )}
       </Router>
     </div>
+   </SessionProvider>
+
   );
 };
 
