@@ -3,16 +3,19 @@ const userController = require('../controllers/userController');
 
 const router = express.Router();
 
-router.post('/check',
+// check cookies if user has an active session => returns userInfo as object
+router.get('/check',
   userController.checkIfSessionActive,
   userController.getUserInfo,
   (req, res) => res.status(200).json(res.locals.user));
 
-router.post('/login',
+// receive username & password in headers => returns userInfo as object
+router.get('/login',
   userController.verifyUser,
   userController.createSessionAndSaveToCookies,
   (req, res) => res.status(200).json(res.locals.user));
 
+// delete session from cookies
 // CHANGE TO REDIRECT TO SIGN IN PAGE
 router.delete('/signout',
   userController.deleteSession,
@@ -21,6 +24,7 @@ router.delete('/signout',
     return res.sendStatus(200).json({ message: 'user is logged out' });
   });
 
+// receive userinfo in body => returns userInfo as object
 router.post('/register',
   userController.createUser,
   userController.verifyUser,

@@ -73,8 +73,8 @@ userController.createUser = async (req, res, next) => {
 userController.verifyUser = async (req, res, next) => {
   console.log('WE ARE IN userController.verifyUser');
   const queryArray = [
-    req.body.email, // -> $1
-    req.body.password, // -> $2
+    req.headers.email || req.body.email, // -> $1
+    req.headers.password || req.body.password, // -> $2
   ];
   const query = `
     SELECT _id,email,first_name,last_name 

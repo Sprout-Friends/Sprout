@@ -35,7 +35,6 @@ describe('db tests', () => {
           last_name: 'Binks',
           password: 'aNewHope',
         };
-
         await request
           .post('/users/register')
           .send(userInfo)
@@ -50,15 +49,15 @@ describe('db tests', () => {
       });
     });
 
-    describe('POST - users/login', () => {
+    describe('GET - users/login', () => {
       it('successfully logs in a user', async () => {
         const userInfo = {
           email: 'test@starwars.com',
           password: 'aNewHope',
         };
         await request
-          .post('/users/login')
-          .send(userInfo)
+          .get('/users/login')
+          .set(userInfo)
           .expect(200)
           .expect('Content-Type', 'application/json; charset=utf-8')
           .then((res) => {
