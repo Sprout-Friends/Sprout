@@ -1,8 +1,3 @@
 @tailwind base;
-#imageFile {
-  opacity: 0;
-  display: none;
-}
-
 @tailwind components;
 @tailwind utilities;
