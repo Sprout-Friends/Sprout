@@ -5,9 +5,9 @@ import Login from './containers/LoginContainer';
 
 const App = () => {
   // Enable isLoggedIn for development
-  // const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div id="app-container">
