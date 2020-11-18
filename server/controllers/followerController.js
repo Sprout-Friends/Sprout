@@ -62,7 +62,7 @@ followerController.deleteFollower = (req, res, next) => {
     })
     .catch((err) =>
       next({
-        log: 'Favorite not deleted. Check query syntax.',
+        log: 'Follower not deleted. Check query syntax.',
         message: { error: err },
       })
     );
