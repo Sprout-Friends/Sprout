@@ -47,7 +47,12 @@ const LoginContainer = () => {
       }
       fetch(`/${path}`, {
         method: 'POST',
-        body: JSON.stringify({ email, password, firstname, lastname }),
+        body: JSON.stringify({
+          email,
+          password,
+          first_name: firstname,
+          last_name: lastname,
+        }),
         headers: {
           'Content-type': 'Application/json',
         },
@@ -65,15 +70,15 @@ const LoginContainer = () => {
           console.log(e);
         });
     } else {
-      if (path === 'register') {
+      if (path === 'login') {
         if (email.trim() === '' || password.trim() === '') {
           return;
         }
         fetch(`/${path}`, {
-          method: 'POST',
-          body: JSON.stringify({ email, password }),
           headers: {
             'Content-type': 'Application/json',
+            email,
+            password,
           },
         })
           .then((data) => data.json())
