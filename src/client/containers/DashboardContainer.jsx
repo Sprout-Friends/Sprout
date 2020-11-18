@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import UserProfileHeader from '../components/UserProfileHeader';
 import Gallery from '../components/Gallery';
 import Navigation from '../components/Navigation';
+import { SessionContext } from '../contexts/sessionContext';
 
 const DashboardContainer = () => {
   // Temp Data
@@ -78,9 +79,8 @@ const DashboardContainer = () => {
     },
   ];
 
+  const { currentUser } = useContext(SessionContext);
   const [images, setImages] = useState(temp);
-
-  // TODO: Set up fetch request for User info
 
   fetch('/plants', { headers: { userid: '1' } })
     .then((data) => data.json())
