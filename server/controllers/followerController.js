@@ -67,5 +67,4 @@ followerController.deleteFollower = (req, res, next) => {
       })
     );
 };
-
-export default followerController;
+module.exports = followerController;
