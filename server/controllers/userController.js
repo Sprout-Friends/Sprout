@@ -20,7 +20,6 @@ userController.checkIfSessionActive = async (req, res, next) => {
 
 userController.createSessionAndSaveToCookies = async (req, res, next) => {
   const randomSessionId = Math.random().toString(20).substr(2, 15);
-  console.log('WE ARE IN userController.createSession');
   const { user } = res.locals;
   const query = 'INSERT INTO session(user_id, session_id) VALUES ($1, $2)';
 
@@ -52,7 +51,6 @@ userController.deleteSession = async (req, res, next) => {
 
 // USER INFO
 userController.createUser = async (req, res, next) => {
-  console.log('WE ARE IN userController.createUser');
   const queryArray = [
     req.body.email, // -> $1
     req.body.first_name, // -> $2
@@ -71,7 +69,6 @@ userController.createUser = async (req, res, next) => {
 };
 
 userController.verifyUser = async (req, res, next) => {
-  console.log('WE ARE IN userController.verifyUser');
   const queryArray = [
     req.headers.email || req.body.email, // -> $1
     req.headers.password || req.body.password, // -> $2
@@ -94,7 +91,6 @@ userController.verifyUser = async (req, res, next) => {
 };
 
 userController.getUserInfo = async (req, res, next) => {
-  console.log('WE ARE IN userController.getUserInfo');
   const { userId } = res.locals;
   const query = `
     SELECT _id,email,first_name,last_name
