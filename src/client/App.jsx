@@ -4,7 +4,7 @@ import Dashboard from './containers/DashboardContainer';
 import Login from './containers/LoginContainer';
 import PlantProfile from './containers/PlantProfileContainer';
 import NewPost from './containers/NewPostContainer';
-import UserProfile from './components/UserProfileHeader';
+import AccountPageContainer from './containers/AccountPageContainer';
 
 const App = () => {
   // Enable isLoggedIn for development
@@ -22,7 +22,7 @@ const App = () => {
             {/* <Route exact path='/search' component={} /> */}
             <Route exact path="/camera" component={NewPost} />
             {/* <Route exact path='/message' component={} /> */}
-            <Route exact path="/profile" component={UserProfile} />
+            <Route exact path="/account" component={AccountPageContainer} />
             <Route path="*" render={() => <h1>404 - Page Not Found</h1>} />
           </Switch>
         </Router>
