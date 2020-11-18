@@ -23,16 +23,19 @@ postController.getLatestPostAllPlants = (req, res, next) => {
       posts.reverse().forEach((post) => {
         for (let i = 0; i < plants.length; ++i) {
           console.log(plants[i], 'vs', post.plant_id);
-          if (plants[i]._id.toString() === post.plant_id.toString()) plants[i].url = post.url;
+          if (plants[i]._id.toString() === post.plant_id.toString())
+            plants[i].url = post.url;
         }
       });
       res.locals.plants = plants;
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get posts. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get posts. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 postController.getAllPosts = (req, res, next) => {
@@ -41,6 +44,7 @@ postController.getAllPosts = (req, res, next) => {
   const query = `
   SELECT * FROM posts
   WHERE plant_id = $1
+  ORDER BY created_at DESC
   `;
   const values = [plantid];
 
@@ -49,10 +53,12 @@ postController.getAllPosts = (req, res, next) => {
       res.locals.posts = data.rows;
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get posts. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get posts. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 postController.addPost = (req, res, next) => {
@@ -64,14 +70,16 @@ postController.addPost = (req, res, next) => {
   VALUES ($1,$2,$3)
   `;
   const timestamp = new Date().toISOString();
-  const values = [plantid, userid, timestamp];
+  const values = [plantid, url, timestamp];
 
   db.query(query, values)
     .then(() => next())
-    .catch((err) => next({
-      log: 'Could not add posts. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not add posts. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 module.exports = postController;

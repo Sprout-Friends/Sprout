@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Gallery = ({ images, type }) => {
-  const imagesComponents = images.map(({ plantId, url }, i) => (
+  const imagesComponents = images.map(({ _id, url }, i) => (
     <div className="w-1/3 p-px" key={`gallery-img-${i}`}>
       <div className="relative pb-full">
         {type === 'dashboard' ? (
-          <Link to={`/plant/${plantId}`}>
+          <Link to={`/plant/${_id}`}>
             <img
               className="absolute h-full w-full object-cover border rounded-sm"
               src={url}
