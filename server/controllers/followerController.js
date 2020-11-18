@@ -25,6 +25,27 @@ followerController.getFollowers = (req, res, next) => {
     );
 };
 
+followerController.addFollower = (req, res, next) => {
+  const { follower_id, followed_id } = req.headers;
+  const query = `
+    INSERT INTO relationships (follower_id, followed_id) 
+    VALUES ($1,$2) 
+  `;
+  const values = [follower_id, followed_id];
+
+  db.query(query, values)
+    .then((data) => {
+      res.locals.followers = data.rows;
+      return next();
+    })
+    .catch((err) =>
+      next({
+        log: 'Could not get followers. Check query syntax.',
+        message: { error: err },
+      })
+    );
+};
+
 followerController.deleteFollower = (req, res, next) => {
   const { follower_id, followed_id } = req.headers;
   const query = `

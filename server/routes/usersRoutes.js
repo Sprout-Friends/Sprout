@@ -42,7 +42,12 @@ router.get('/followers', followerController.getFollowers, (req, res) => {
   res.status(200).json(res.locals.followers);
 });
 
-//recieves follower_id, followed_id from headers => returns followers as an object
+//recieves follower_id from headers => returns followers as an object
+router.post('/followers', followerController.addFollower, (req, res) => {
+  res.status(200).json(res.locals.followers);
+});
+
+//deletes follower  => returns updated followers as an object
 router.delete(
   '/followers/:followed_id',
   followerController.deleteFollower,
