@@ -4,6 +4,9 @@ import Dashboard from './containers/DashboardContainer';
 import Login from './containers/LoginContainer';
 import { UserContext } from './UserContext';
 import { Index } from './index';
+import PlantProfile from './containers/PlantProfileContainer';
+import NewPost from './containers/NewPostContainer';
+import UserProfile from './components/UserProfileHeader';
 
 const App = () => {
   // Enable isLoggedIn for development
@@ -19,10 +22,11 @@ const App = () => {
           <Switch>
             <UserContext.Provider value={value}>
               <Route exact path="/" component={Dashboard} />
+              <Route exact path="/plant/:plantId" component={PlantProfile} />
               {/* <Route exact path='/search' component={} /> */}
-              {/* <Route exact path='/camera' component={} /> */}
+              <Route exact path="/camera" component={NewPost} />
               {/* <Route exact path='/message' component={} /> */}
-              {/* <Route exact path='/profile' component={} /> */}
+              <Route exact path="/profile" component={UserProfile} />
               <Route path="*" render={() => <h1>404 - Page Not Found</h1>} />
             </UserContext.Provider>
           </Switch>
