@@ -1,17 +1,16 @@
 import React from 'react';
-
 const NewPost = () => {
   return (
-    <div class="flex items-center justify-center h-screen">
-      <div class="bg-green-600 text-white text-center font-bold rounded-lg border shadow-lg p-8">
+    <div className="flex items-center justify-center h-screen">
+      <div className="p-8 font-bold text-center text-white bg-green-600 border rounded-lg shadow-lg">
         <label
           htmlFor="imageFile"
-          className="text-white align-middle text-xl p-8"
+          className="p-8 text-xl text-white align-middle"
         >
           Click here to upload Image
         </label>
         <input
-          className="opacity-0 hidden"
+          className="hidden opacity-0"
           type="file"
           id="imageFile"
           capture="user"
