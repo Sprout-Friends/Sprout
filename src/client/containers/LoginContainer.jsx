@@ -36,43 +36,26 @@ const LoginContainer = () => {
   };
   const submit = (path) => {
     // client-side validation
-    if(path === 'register') {
-      if (email.trim() === '' || password.trim() === '' || firstname.trim() === '' || lastname.trim() === '') {
+    if (path === 'register') {
+      if (
+        email.trim() === '' ||
+        password.trim() === '' ||
+        firstname.trim() === '' ||
+        lastname.trim() === ''
+      ) {
         return;
-    }
-    fetch(`/${path}`, {
-      method: 'POST',
-      body: JSON.stringify({ email, password, firstname, lastname }),
-      headers: {
-        'Content-type': 'Application/json',
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        setFirstname('');
-        setLastname('');
-        setEmail('');
-        setPassword('');
-        // if successfully set user in db, do something and redirect
-        console.log('successfully set user!');
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    } else {
-      if(path === 'register') {
-        if (email.trim() === '' || password.trim() === '') {
-          return;
       }
       fetch(`/${path}`, {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, firstname, lastname }),
         headers: {
           'Content-type': 'Application/json',
         },
       })
         .then((data) => data.json())
         .then((data) => {
+          setFirstname('');
+          setLastname('');
           setEmail('');
           setPassword('');
           // if successfully set user in db, do something and redirect
@@ -81,9 +64,31 @@ const LoginContainer = () => {
         .catch((e) => {
           console.log(e);
         });
+    } else {
+      if (path === 'register') {
+        if (email.trim() === '' || password.trim() === '') {
+          return;
+        }
+        fetch(`/${path}`, {
+          method: 'POST',
+          body: JSON.stringify({ email, password }),
+          headers: {
+            'Content-type': 'Application/json',
+          },
+        })
+          .then((data) => data.json())
+          .then((data) => {
+            setEmail('');
+            setPassword('');
+            // if successfully set user in db, do something and redirect
+            console.log('successfully set user!');
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
     }
   };
-
   const switching = () => {
     if (page === 'Sign Up') setPage('Log In');
     else setPage('Sign Up');
