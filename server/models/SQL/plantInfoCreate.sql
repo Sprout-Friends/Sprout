@@ -25,6 +25,7 @@ CREATE TABLE plants (
 CREATE TABLE session (
   "_id" serial NOT NULL,
   "user_id" bigint NOT NULL,
+  "session_id" varchar NOT NULL,
   UNIQUE ("_id"),
   CONSTRAINT "session_pk" PRIMARY KEY ("_id"),
   CONSTRAINT "session_fk0" FOREIGN KEY ("user_id") REFERENCES users("_id")

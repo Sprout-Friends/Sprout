@@ -13,7 +13,8 @@ module.exports = {
     hot: true,
     open: true,
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/users': 'http://localhost:3000',
+      '/plants': 'http://localhost:3000',
     },
   },
   resolve: {
