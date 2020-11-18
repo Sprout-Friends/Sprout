@@ -49,7 +49,7 @@ followerController.addFollower = (req, res, next) => {
 followerController.deleteFollower = (req, res, next) => {
   const { follower_id, followed_id } = req.headers;
   const query = `
-    DELETE from relationships 
+    DELETE FROM relationships 
     WHERE follower_id=$1 AND followed_id=$2 
   `;
 
