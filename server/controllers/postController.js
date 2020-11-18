@@ -4,35 +4,35 @@ const postController = {};
 
 postController.getLatestPostAllPlants = (req, res, next) => {
   const { plants } = res.locals;
-  const { userid, plantid } = req.headers;
+  const { userid } = req.headers;
 
   const query = `
   SELECT posts._id, posts.plant_id, posts.url, posts.created_at 
   FROM posts 
-  INNER JOIN plants 
-  ON plants._id = $1 
+  INNER JOIN plants
+  ON plants._id = posts.plant_id
+  WHERE plants.user_id = $1 
   ORDER BY created_at DESC
   `;
 
-  const values = [plantid];
+  const values = [userid];
 
   db.query(query, values)
     .then((data) => {
       const posts = data.rows;
-      posts.forEach((post) => {
+      posts.reverse().forEach((post) => {
         for (let i = 0; i < plants.length; ++i) {
-          if (!plants[i].url && plants[i]._id === post.plant_id) {
-            plants[i].url = post.url;
-          }
+          console.log(plants[i], 'vs', post.plant_id);
+          if (plants[i]._id.toString() === post.plant_id.toString()) plants[i].url = post.url;
         }
       });
       res.locals.plants = plants;
+      return next();
     })
     .catch((err) => next({
       log: 'Could not get posts. Check query syntax.',
       message: { error: err },
     }));
-  next();
 };
 
 postController.getAllPosts = (req, res, next) => {
