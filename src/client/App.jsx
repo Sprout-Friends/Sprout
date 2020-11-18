@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SessionProvider from './contexts/sessionContext';
 import Dashboard from './containers/DashboardContainer';
 import Login from './containers/LoginContainer';
 import PlantProfile from './containers/PlantProfileContainer';
@@ -13,23 +14,25 @@ const App = () => {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <div id="app-container">
-      {isLoggedIn ? (
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/plant/:plantId" component={PlantProfile} />
-            {/* <Route exact path='/search' component={} /> */}
-            <Route exact path="/camera" component={NewPost} />
-            {/* <Route exact path='/message' component={} /> */}
-            <Route exact path="/profile" component={UserProfile} />
-            <Route path="*" render={() => <h1>404 - Page Not Found</h1>} />
-          </Switch>
-        </Router>
-      ) : (
-        <Login />
-      )}
-    </div>
+    <SessionProvider>
+      <div id="app-container">
+        {isLoggedIn ? (
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/plant/:plantId" component={PlantProfile} />
+              {/* <Route exact path='/search' component={} /> */}
+              <Route exact path="/camera" component={NewPost} />
+              {/* <Route exact path='/message' component={} /> */}
+              <Route exact path="/profile" component={UserProfile} />
+              <Route path="*" render={() => <h1>404 - Page Not Found</h1>} />
+            </Switch>
+          </Router>
+        ) : (
+          <Login />
+        )}
+      </div>
+    </SessionProvider>
   );
 };
 

@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import UserProfileHeader from '../components/UserProfileHeader';
 import Gallery from '../components/Gallery';
 import Navigation from '../components/Navigation';
+import { SessionContext } from '../contexts/sessionContext';
 
 const DashboardContainer = () => {
-  // TODO: Set up fetch request for all plants
-  // TODO: Set up fetch request for User info
-
-  const images = [
+  // Temp Data
+  const temp = [
     {
       plantId: '1',
       url:
@@ -79,6 +78,15 @@ const DashboardContainer = () => {
         'https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_petite-white-orchid_variant_x-small_hyde_cream_360x.jpg?v=1603637955',
     },
   ];
+
+  const { currentUser } = useContext(SessionContext);
+  const [images, setImages] = useState(temp);
+
+  fetch('/plants', { headers: { userid: '1' } })
+    .then((data) => data.json())
+    .then((plants) => {
+      setImages(plants);
+    });
 
   return (
     <div className="flex flex-col h-screen" id="dashboard-container">
