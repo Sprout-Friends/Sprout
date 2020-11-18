@@ -5,9 +5,10 @@ const postController = require('../controllers/postController');
 const router = express.Router();
 
 // receive userid in headers => returns plant list as array of objects
-router.get('/', plantController.getPlants, (req, res) => {
-  res.status(200).send(res.locals.plants);
-});
+router.get('/',
+  plantController.getPlants,
+  postController.getLatestPostAllPlants,
+  (req, res) => { res.status(200).send(res.locals.plants); });
 
 // receive userid in headers, plantobj in body => returns plant list as array of objects
 router.post('/',

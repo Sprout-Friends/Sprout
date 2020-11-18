@@ -3,7 +3,6 @@ const db = require('../models/plantModels');
 const plantController = {};
 
 plantController.getPlants = (req, res, next) => {
-  console.log('controller - getPlants');
   const { userid } = req.headers;
 
   const query = `

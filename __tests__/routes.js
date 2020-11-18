@@ -73,7 +73,6 @@ describe('db tests', () => {
     });
   });
 
-  // THIS IS IN PROGRESS
   describe('plants table', () => {
     describe('POST', () => {
       it('successfully add 2 new plants', async () => {
