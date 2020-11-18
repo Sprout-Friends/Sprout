@@ -7,24 +7,25 @@ const request = supertest(app);
 
 describe('db tests', () => {
   let userStore;
+  let plantStore;
 
   // clear all database rows before starting
   beforeAll(async (done) => {
+    await db.query('DELETE FROM posts');
     await db.query('DELETE FROM session');
     await db.query('DELETE FROM plants');
     await db.query('DELETE FROM users');
     await db.query('DELETE FROM relationships');
-    await db.query('DELETE FROM posts');
     done();
   });
 
   // clear all database rows after finishing
   afterAll(async (done) => {
+    await db.query('DELETE FROM posts');
     await db.query('DELETE FROM session');
     await db.query('DELETE FROM plants');
     await db.query('DELETE FROM users');
     await db.query('DELETE FROM relationships');
-    await db.query('DELETE FROM posts');
     done();
   });
 
@@ -88,8 +89,40 @@ describe('db tests', () => {
           .expect(200)
           .expect('Content-Type', 'application/json; charset=utf-8')
           .then((res) => {
+            plantStore = res.body;
+            assert(plantStore.length === 2);
+          });
+      });
+    });
+
+    describe('GET', () => {
+      it('successfully get 2 plants for user', async () => {
+        await request
+          .get('/plants')
+          .set({ userid: userStore._id })
+          .send()
+          .expect(200)
+          .expect('Content-Type', 'application/json; charset=utf-8')
+          .then((res) => {
             const plantArray = res.body;
             assert(plantArray.length === 2);
+          });
+      });
+    });
+
+    describe('DELETE', () => {
+      it('successfully delete 1 plant for user', async () => {
+        await request
+          .delete('/plants')
+          .set({ userid: userStore._id, plantid: plantStore[0]._id })
+          .send()
+          .expect(200)
+          .expect('Content-Type', 'application/json; charset=utf-8')
+          .then((res) => {
+            console.log(plantStore[0]._id);
+            plantStore = res.body;
+            console.log(plantStore);
+            assert(plantStore.length === 1);
           });
       });
     });

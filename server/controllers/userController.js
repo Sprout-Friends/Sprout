@@ -12,10 +12,12 @@ userController.checkIfSessionActive = async (req, res, next) => {
       res.locals.userId = data.rows[0].user_id;
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get session from DB. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get session from DB. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 userController.createSessionAndSaveToCookies = async (req, res, next) => {
@@ -28,10 +30,12 @@ userController.createSessionAndSaveToCookies = async (req, res, next) => {
       res.cookie('sessionId', randomSessionId, { httpOnly: true });
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get session from DB. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get session from DB. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 userController.deleteSession = async (req, res, next) => {
@@ -43,10 +47,12 @@ userController.deleteSession = async (req, res, next) => {
       res.cookie('sessionId', res.locals.sessionId, { expires: Date.now() });
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not delete session from DB. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not delete session from DB. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 // USER INFO
@@ -58,14 +64,17 @@ userController.createUser = async (req, res, next) => {
     req.body.password, // -> $4
   ];
 
-  const query = 'INSERT INTO users(email,first_name,last_name,password) VALUES ($1,$2,$3,$4)';
+  const query =
+    'INSERT INTO users(email,first_name,last_name,password) VALUES ($1,$2,$3,$4)';
 
   db.query(query, queryArray)
     .then((data) => next())
-    .catch((err) => next({
-      log: 'Could not createUser in DB. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not createUser in DB. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 userController.verifyUser = async (req, res, next) => {
@@ -81,13 +90,16 @@ userController.verifyUser = async (req, res, next) => {
 
   db.query(query, queryArray)
     .then((data) => {
+      if (data.rowCount === 0) res.sendStatus(403);
       res.locals.user = data.rows[0];
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get verify user from DB. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get verify user from DB. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 userController.getUserInfo = async (req, res, next) => {
@@ -103,10 +115,12 @@ userController.getUserInfo = async (req, res, next) => {
       res.locals.user = data.rows[0];
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get verify user from DB. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get verify user from DB. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 module.exports = userController;
