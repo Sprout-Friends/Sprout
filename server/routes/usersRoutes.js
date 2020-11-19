@@ -12,6 +12,10 @@ router.get(
   (req, res) => res.status(200).json(res.locals.user)
 );
 
+router.get('/search_page', userController.getUserInfo, (req, res) =>
+  res.status(200).json(res.locals.user)
+);
+
 // receive username & password in headers => returns userInfo as object
 router.get(
   '/login',
