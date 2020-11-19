@@ -14,8 +14,8 @@ module.exports = {
     hot: true,
     open: true,
     proxy: {
-      '/users/**': 'http://localhost:3000',
-      '/plants/**': 'http://localhost:3000',
+      '/users': 'http://localhost:3000',
+      '/plants': 'http://localhost:3000',
     },
   },
   resolve: {
