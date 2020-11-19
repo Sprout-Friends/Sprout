@@ -38,7 +38,7 @@ const Navigation = () => {
           </li>
           <li className="inline-block">
             <Link
-              to="profile"
+              to="account"
               className="m-2 text-green-600 hover:text-green-700"
             >
               <User />
