@@ -1,5 +1,9 @@
 const db = require('../models/plantModels');
 
+const upload = require('../services/imageUpload');
+
+const singleUpload = upload.single('image');
+
 const postController = {};
 
 postController.getLatestPostAllPlants = (req, res, next) => {
@@ -61,9 +65,23 @@ postController.getAllPosts = (req, res, next) => {
     );
 };
 
+postController.uploadPostImage = (req, res, next) => {
+  singleUpload(req, res, (err) => {
+    if (err) {
+      return next({
+        log: 'Could not upload post image.',
+        message: { error: err },
+      });
+    }
+
+    res.locals.url = req.file.location;
+    return next();
+  });
+};
+
 postController.addPost = (req, res, next) => {
   const { userid, plantid } = req.headers;
-  const { url } = req.body;
+  const { url } = res.locals;
 
   const query = `
   INSERT INTO posts (plant_id,url,created_at) 

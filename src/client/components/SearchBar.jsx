@@ -12,14 +12,24 @@ const SearchBar = () => {
     width: '500px',
     border: '3px',
   };
+  function searchForUser() {
+    fetch('/search_page')
+      .then((res) => {
+        return res.json;
+      })
+      .then((data) => {
+        return data;
+      });
+  }
   return (
     <div>
-      <form className="searchBar" action="search_page.php" style={formStyle}>
-        <input
-          type="text"
-          placeholder="Search for Other Plants..."
-          name="SearchBar"
-        />
+      <form
+        className="searchBar"
+        action="search_page"
+        style={formStyle}
+        onSubmit={searchForUser()}
+      >
+        <input type="text" placeholder="Search..." name="SearchBar" />
         <button type="submit" style={buttonStyle}>
           {/* <i className="fa fa-search"></i> */}
         </button>
