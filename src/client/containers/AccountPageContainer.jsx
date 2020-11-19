@@ -6,7 +6,7 @@ import AccountPage from '../components/AccountPage';
 const AccountPageContainer = () => {
   return (
     <div className="flex flex-col h-screen">
-      <UserProfileHeader />
+      <UserProfileHeader type="account" />
       <AccountPage />
       <Navigation />
     </div>
