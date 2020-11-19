@@ -2,6 +2,7 @@ require('dotenv').config('../.env');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const plantsRoutes = require('./routes/plantsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
@@ -37,7 +38,9 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-console.log('Remember to check your .env file if you cannot connect to the database');
+console.log(
+  'Remember to check your .env file if you cannot connect to the database'
+);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 

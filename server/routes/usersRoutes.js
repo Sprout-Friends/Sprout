@@ -27,8 +27,7 @@ router.get(
 // delete session from cookies
 // CHANGE TO REDIRECT TO SIGN IN PAGE
 router.delete('/signout', userController.deleteSession, (req, res) => {
-  console.log(req);
-  return res.sendStatus(200).json({ message: 'user is logged out' });
+  return res.status(200).json({ message: 'user is logged out' });
 });
 
 // receive userinfo in body => returns userInfo as object

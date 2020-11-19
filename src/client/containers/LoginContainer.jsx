@@ -91,9 +91,9 @@ const LoginContainer = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        <h1 className="my-8 text-center text-3xl leading-9 font-extrabold text-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md">
+        <h1 className="my-8 text-3xl font-extrabold leading-9 text-center text-gray-900">
           {renderSignUpPage ? 'Sign Up' : 'Log In'}
         </h1>
         <div className="rounded-md shadow-sm">
@@ -102,7 +102,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
               <>
                 <div className="input-border">
                   <input
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                    className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                     id="input-firstname"
                     type="text"
                     value={firstname}
@@ -113,7 +113,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
                 <br />
                 <div className="input-border">
                   <input
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                    className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                     id="input-lastname"
                     type="text"
                     value={lastname}
@@ -126,7 +126,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
             <br />
             <div className="input-border">
               <input
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                 id="input-email"
                 type="text"
                 value={email}
@@ -137,7 +137,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
             <br />
             <div className="input-border">
               <input
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                 id="input-password"
                 type="password"
                 value={password}
@@ -151,7 +151,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
         <div className="buttonDiv">
           <button
             type="submit"
-            className="group my-3 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+            className="relative flex justify-center w-full px-4 py-2 my-3 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md group hover:bg-green-700 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
             id={renderSignUpPage ? 'register' : 'login'}
             onClick={(e) => {
               submit(e.target.id);
@@ -167,7 +167,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
             ? 'Already have an account?'
             : 'Need to create an account?'}
           <button
-            className="my-4 mx-2 focus:outline-none text-green-600 hover:text-green-800 font-medium"
+            className="mx-2 my-4 font-medium text-green-600 focus:outline-none hover:text-green-800"
             type="button"
             onClick={() => setRenderSignUpPage(!renderSignUpPage)}
           >
