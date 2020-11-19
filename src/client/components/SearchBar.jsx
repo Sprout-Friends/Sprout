@@ -13,7 +13,7 @@ const SearchBar = () => {
     border: '3px',
   };
   function searchForUser() {
-    fetch('/search_page.php')
+    fetch('/search_page')
       .then((res) => {
         return res.json;
       })
@@ -25,7 +25,7 @@ const SearchBar = () => {
     <div>
       <form
         className="searchBar"
-        action="search_page.php"
+        action="search_page"
         style={formStyle}
         onSubmit={searchForUser()}
       >
