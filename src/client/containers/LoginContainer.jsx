@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { SessionContext } from '../contexts/sessionContext';
 
 const LoginContainer = ({ setIsLoggedIn }) => {
+  const { setCurrentUser } = useContext(SessionContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -78,6 +81,7 @@ const LoginContainer = ({ setIsLoggedIn }) => {
           setEmail('');
           setPassword('');
           // data is {_id, email, first_name, last_name}
+          setCurrentUser(data);
           if (data.email) {
             setIsLoggedIn(true);
           }
