@@ -10,6 +10,7 @@ const SearchBar = () => {
   const formStyle = {
     margin: 'auto',
     width: '500px',
+    border: '3px',
   };
   return (
     <div>
