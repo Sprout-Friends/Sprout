@@ -29,7 +29,7 @@ const App = () => {
               <Route path="*" render={() => <h1>404 - Page Not Found</h1>} />
             </Switch>
           ) : (
-            <Login />
+            <Login setIsLoggedIn={setIsLoggedIn} />
           )}
         </Router>
       </div>
