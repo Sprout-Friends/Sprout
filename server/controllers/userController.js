@@ -40,19 +40,18 @@ userController.createSessionAndSaveToCookies = async (req, res, next) => {
 
 userController.deleteSession = async (req, res, next) => {
   const { sessionId } = req.cookies;
-  const query = 'DELETE FROM session WHERE _id=$1';
-
+  const query = 'DELETE FROM session WHERE session_id=$1';
   db.query(query, [sessionId])
     .then((data) => {
-      res.cookie('sessionId', res.locals.sessionId, { expires: Date.now() });
+      res.cookie('sessionId', '');
       return next();
     })
-    .catch((err) =>
-      next({
+    .catch((err) => {
+      return next({
         log: 'Could not delete session from DB. Check query syntax.',
         message: { error: err },
-      })
-    );
+      });
+    });
 };
 
 // USER INFO
