@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Logout } from 'heroicons-react';
 
 const AccountPage = () => {
   const handleSignOut = (e) => {
@@ -11,12 +12,12 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="flex-grow overflow-scroll">
+    <div className="flex-grow mt-8 overflow-scroll">
       <div className="flex flex-col items-center w-full px-px text-center">
-        <div className="px-4 py-2 font-bold text-center text-white bg-green-600 border rounded-lg">
+        <div className="px-4 py-2 font-bold text-center text-white bg-green-600 border rounded-lg sm:w-auto hover:bg-green-700">
           <label
             htmlFor="profilePicture"
-            className="p-8 text-xl text-white align-middle"
+            className="text-xl text-white align-middle cursor-pointer"
           >
             Upload Profile Picture
           </label>
@@ -32,9 +33,9 @@ const AccountPage = () => {
         <button
           type="button"
           onClick={handleSignOut}
-          className="w-1/3 px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+          className="px-4 py-2 mt-2 text-xl font-bold text-white bg-blue-600 rounded hover:bg-blue-700"
         >
-          Sign Out
+          Logout
         </button>
       </div>
     </div>
