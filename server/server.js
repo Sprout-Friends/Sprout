@@ -40,7 +40,7 @@ app.use((err, req, res, next) => {
 });
 
 console.log(
-  'Remember to check your .env file if you cannot connect to the database'
+  'Remember to check your .env file if you cannot connect to the database',
 );
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
