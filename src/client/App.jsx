@@ -6,12 +6,13 @@ import Login from './containers/LoginContainer';
 import PlantProfile from './containers/PlantProfileContainer';
 import NewPost from './containers/NewPostContainer';
 import UserProfile from './components/UserProfileHeader';
+import SearchPage from './containers/SearchContainer';
 
 const App = () => {
   // Enable isLoggedIn for development
   // const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <SessionProvider>
@@ -21,7 +22,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/plant/:plantId" component={PlantProfile} />
-              {/* <Route exact path='/search' component={} /> */}
+              <Route exact path="/search" component={SearchPage} />
               <Route exact path="/camera" component={NewPost} />
               {/* <Route exact path='/message' component={} /> */}
               <Route exact path="/profile" component={UserProfile} />
