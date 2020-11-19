@@ -12,7 +12,7 @@ const App = () => {
   // Enable isLoggedIn for development
   // const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <SessionProvider>

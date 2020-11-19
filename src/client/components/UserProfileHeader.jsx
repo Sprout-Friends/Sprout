@@ -33,13 +33,13 @@ const UserProfileHeader = ({ type, numOfPlants, setImages }) => {
         />
         <p className="flex-grow font-bold text-lg ml-1">
           {/* Capitalize the first letter every word in name */}
-          {`${
+          {/* {`${
             currentUser.first_name[0].toUpperCase() +
             currentUser.first_name.substring(1).toLowerCase()
           } ${
             currentUser.last_name[0].toUpperCase() +
             currentUser.last_name.substring(1).toLowerCase()
-          }`}
+          }`} */}
         </p>
         {type === 'dashboard' && (
           <button type="button" onClick={handlePostNewPlant}>
