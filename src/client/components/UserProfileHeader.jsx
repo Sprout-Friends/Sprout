@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Plus } from 'heroicons-react';
+import { SessionContext } from '../contexts/sessionContext';
 
-const UserProfileHeader = ({ numOfPlants }) => {
+const UserProfileHeader = ({ type, numOfPlants }) => {
+  const { currentUser } = useContext(SessionContext);
+
   // Temp state
   const followers = 24;
   const following = 12;
@@ -18,22 +21,35 @@ const UserProfileHeader = ({ numOfPlants }) => {
           alt="Profile"
         />
         <p className="flex-grow font-bold text-lg ml-1">{userName}</p>
-        <Plus className="text-green-700 ml-2 mr-3" size={42} />
+        {type === 'dashboard' && (
+          <Plus className="text-green-700 ml-2 mr-3" size={42} />
+        )}
       </div>
-      <div className="flex m-2" id="user-social-info">
-        <div className="flex flex-col items-center w-1/3" id="social-info-box">
-          <p className="font-bold">{numOfPlants}</p>
-          <p>Plants</p>
+      {type === 'dashboard' && (
+        <div className="flex m-2" id="user-social-info">
+          <div
+            className="flex flex-col items-center w-1/3"
+            id="social-info-box"
+          >
+            <p className="font-bold">{numOfPlants}</p>
+            <p>Plants</p>
+          </div>
+          <div
+            className="flex flex-col items-center w-1/3"
+            id="social-info-box"
+          >
+            <p className="font-bold">{followers}</p>
+            <p>Followers</p>
+          </div>
+          <div
+            className="flex flex-col items-center w-1/3"
+            id="social-info-box"
+          >
+            <p className="font-bold">{following}</p>
+            <p>Following</p>
+          </div>
         </div>
-        <div className="flex flex-col items-center w-1/3" id="social-info-box">
-          <p className="font-bold">{followers}</p>
-          <p>Followers</p>
-        </div>
-        <div className="flex flex-col items-center w-1/3" id="social-info-box">
-          <p className="font-bold">{following}</p>
-          <p>Following</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
