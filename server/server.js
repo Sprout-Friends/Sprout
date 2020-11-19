@@ -2,6 +2,7 @@ require('dotenv').config('../.env');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const plantsRoutes = require('./routes/plantsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
@@ -22,10 +23,6 @@ app.use('/users', usersRoutes);
 
 // REGULAR ROUTES
 app.get('/', (req, res) => res.status(200).send('Hello World'));
-app.get(
-  '/bye',
-  express.static(path.resolve(__dirname, './src/client/signout.html'))
-);
 app.use(express.static('public'));
 
 // ERROR HANDLER
