@@ -1,12 +1,13 @@
 import React from 'react';
-import axios from 'axios';
-import { Logout } from 'heroicons-react';
 
 const AccountPage = () => {
-  const handleSignOut = (e) => {
-    e.preventDefault();
-
-    axios.delete('/signout', {}).then((response) => {
+  const handleSignOut = () => {
+    fetch('/users/signout', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
       console.log(response);
     });
   };

@@ -16,28 +16,32 @@ plantController.getPlants = (req, res, next) => {
       res.locals.plants = data.rows;
       return next();
     })
-    .catch((err) => next({
-      log: 'Could not get plants. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Could not get plants. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 plantController.addPlant = (req, res, next) => {
   const { userid } = req.headers;
   const { plantInfo } = req.body;
   const query = `
-    INSERT INTO plants (user_id) 
-    VALUES ($1)
+    INSERT INTO plants (user_id, plantInfo) 
+    VALUES ($1, $2)
   `;
 
-  const values = [userid];
+  const values = [userid, plantInfo];
 
   db.query(query, values)
     .then(() => next())
-    .catch((err) => next({
-      log: 'Plant not added. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Plant not added. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 plantController.deletePlant = (req, res, next) => {
@@ -51,10 +55,12 @@ plantController.deletePlant = (req, res, next) => {
 
   db.query(query, values)
     .then((data) => next())
-    .catch((err) => next({
-      log: 'Plant not deleted. Check query syntax.',
-      message: { error: err },
-    }));
+    .catch((err) =>
+      next({
+        log: 'Plant not deleted. Check query syntax.',
+        message: { error: err },
+      })
+    );
 };
 
 module.exports = plantController;
