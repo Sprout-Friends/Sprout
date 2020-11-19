@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import SearchBar from '../components/SearchBar';
 import Gallery from '../components/Gallery';
@@ -16,6 +16,7 @@ const SearchContainer = () => {
         'https://toppng.com/uploads/preview/plants-with-sunglasses-cartoon-11550169867suwayop8om.png',
     },
   ];
+
   return (
     <div className="flex flex-col h-screen" id="search-container">
       <SearchBar />
