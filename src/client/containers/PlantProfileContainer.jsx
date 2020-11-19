@@ -12,7 +12,7 @@ const PlantProfileContainer = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    fetch('/plants/', {
+    fetch('/plants/posts', {
       headers: { userid: currentUser._id, plantid: plantId },
     })
       .then((data) => data.json())
