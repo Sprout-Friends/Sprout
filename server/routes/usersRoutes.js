@@ -12,7 +12,7 @@ router.get(
   (req, res) => res.status(200).json(res.locals.user)
 );
 
-router.get('/search_page.php', userController.getUserInfo, (req, res) =>
+router.get('/search_page', userController.getUserInfo, (req, res) =>
   res.status(200).json(res.locals.user)
 );
 
