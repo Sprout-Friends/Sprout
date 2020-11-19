@@ -1,9 +1,8 @@
 import React from 'react';
 import { Plus } from 'heroicons-react';
 
-const UserProfileHeader = () => {
+const UserProfileHeader = ({ numOfPlants }) => {
   // Temp state
-  const plants = 14;
   const followers = 24;
   const following = 12;
   const profilePhoto =
@@ -23,7 +22,7 @@ const UserProfileHeader = () => {
       </div>
       <div className="flex m-2" id="user-social-info">
         <div className="flex flex-col items-center w-1/3" id="social-info-box">
-          <p className="font-bold">{plants}</p>
+          <p className="font-bold">{numOfPlants}</p>
           <p>Plants</p>
         </div>
         <div className="flex flex-col items-center w-1/3" id="social-info-box">
