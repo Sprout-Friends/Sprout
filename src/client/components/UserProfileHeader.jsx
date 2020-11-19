@@ -10,7 +10,6 @@ const UserProfileHeader = ({ type, numOfPlants }) => {
   const following = 12;
   const profilePhoto =
     'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vibe.com%2Ffiles%2F2018%2F04%2Fkendrick-lamar-pulitzer-1523907357-compressed.jpg&f=1&nofb=1';
-  const userName = 'Kendrick Lamar';
 
   return (
     <div id="user-profile-header-container" className="pt-12 pb-3">
@@ -20,7 +19,16 @@ const UserProfileHeader = ({ type, numOfPlants }) => {
           src={profilePhoto}
           alt="Profile"
         />
-        <p className="flex-grow font-bold text-lg ml-1">{userName}</p>
+        <p className="flex-grow font-bold text-lg ml-1">
+          {/* Capitalize the first letter every word in name */}
+          {`${
+            currentUser.first_name[0].toUpperCase() +
+            currentUser.first_name.substring(1).toLowerCase()
+          } ${
+            currentUser.last_name[0].toUpperCase() +
+            currentUser.last_name.substring(1).toLowerCase()
+          }`}
+        </p>
         {type === 'dashboard' && (
           <Plus className="text-green-700 ml-2 mr-3" size={42} />
         )}
