@@ -2,8 +2,20 @@ import React, { useContext } from 'react';
 import { Plus } from 'heroicons-react';
 import { SessionContext } from '../contexts/sessionContext';
 
-const UserProfileHeader = ({ type, numOfPlants }) => {
+const UserProfileHeader = ({ type, numOfPlants, setImages }) => {
   const { currentUser } = useContext(SessionContext);
+
+  const handlePostNewPlant = () => {
+    fetch('/plants', {
+      method: 'POST',
+      headers: { userid: currentUser._id },
+    })
+      .then((data) => data.json())
+      .then((userPlants) => {
+        setImages(userPlants);
+      })
+      .catch((e) => console.log(e));
+  };
 
   // Temp state
   const followers = 24;
@@ -30,7 +42,9 @@ const UserProfileHeader = ({ type, numOfPlants }) => {
           }`}
         </p>
         {type === 'dashboard' && (
-          <Plus className="text-green-700 ml-2 mr-3" size={42} />
+          <button type="button" onClick={handlePostNewPlant}>
+            <Plus className="text-green-700 ml-2 mr-3" size={42} />
+          </button>
         )}
       </div>
       {type === 'dashboard' && (

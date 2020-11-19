@@ -18,7 +18,11 @@ const DashboardContainer = () => {
 
   return (
     <div className="flex flex-col h-screen" id="dashboard-container">
-      <UserProfileHeader type="dashboard" numOfPlants={images.length} />
+      <UserProfileHeader
+        type="dashboard"
+        numOfPlants={images.length}
+        setImages={setImages}
+      />
       <Gallery images={images} type="dashboard" />
       <Navigation />
     </div>
