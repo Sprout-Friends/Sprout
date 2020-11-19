@@ -21,7 +21,7 @@ app.use('/plants', plantsRoutes);
 app.use('/users', usersRoutes);
 
 // REGULAR ROUTES
-app.get('/', (req, res) => res.status(200).send('../index.html'));
+app.get('/', (req, res) => res.status(200).sendFile('../index.html'));
 app.use(express.static('public'));
 
 // ERROR HANDLER
