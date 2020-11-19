@@ -54,12 +54,9 @@ const LoginContainer = ({ setIsLoggedIn }) => {
           setFirstname('');
           setLastname('');
           setEmail('');
-          setPassword('');
-          // data {_id, email, first_name, last_name}
-          if (data.email) {
-            alert('Sign up successful!');
-            setPage('Log In');
-          }
+          setCurrentUser(data);
+          alert('Sign up successful!');
+          setIsLoggedIn(true);
         })
         .catch((e) => {
           alert('Sign up unsuccessful! Try again!');
