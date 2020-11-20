@@ -22,7 +22,8 @@ app.use('/plants', plantsRoutes);
 app.use('/users', usersRoutes);
 
 // REGULAR ROUTES
-app.get('/', (req, res) => res.status(200).send('../index.html'));
+app.use('/build', express.static(path.join(__dirname, '../build')));
+app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../index.html')));
 app.use(express.static('public'));
 
 // ERROR HANDLER
@@ -39,7 +40,7 @@ app.use((err, req, res, next) => {
 });
 
 console.log(
-  'Remember to check your .env file if you cannot connect to the database'
+  'Remember to check your .env file if you cannot connect to the database',
 );
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
